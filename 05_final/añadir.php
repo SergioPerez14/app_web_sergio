@@ -1,7 +1,7 @@
 <?php
 
   //El archivo database_utilities es requerido debido a que contiene las funciones para el manejo de los registros en el listado
-  require_once('database_utilities.php');
+  require_once('connection.php');
 
   //Cuando se presione el boton de guardar se almacenaran los datos en las variables que se mandaran como parametros a la funcion de añadir
   if(isset($_POST["guardar"]))
