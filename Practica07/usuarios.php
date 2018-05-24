@@ -1,12 +1,9 @@
 	<?php 
-session_start();
-if(!isset($_SESSION['username']))
-{
-	header('Location: index.php');
-}
-
-?>
-	<?php
+	session_start();
+	if(!isset($_SESSION['username']))
+	{
+		header('Location: index.php');
+	}
 
   	//El archivo connection.php permite la conexion a la base de datos mediante pdo
 	require_once('connection.php');
