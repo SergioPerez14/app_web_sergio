@@ -12,8 +12,10 @@ require_once "models/enlaces.php";
 require_once "models/crud.php";
 require_once "models/crudMaestros.php";
 require_once "models/crudCarreras.php";
+require_once "models/crudTutorias.php";
 require_once "controllers/controller.php";
 require_once "controllers/controllerMaestros.php";
+require_once "controllers/controllerTutorias.php";
 require_once "controllers/controllerCarreras.php";
 //Para poder ver el template se hace la petición mediante un controlador.
 
@@ -24,3 +26,12 @@ $mvc = new MvcController();
 $mvc -> pagina();
 
 ?>
+
+<script type="text/javascript">
+	
+	$(document).ready(function() {
+	    $("js-example-basic-single").select2();
+	    $('#example').DataTable();
+	} );
+
+</script>

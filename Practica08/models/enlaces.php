@@ -5,7 +5,7 @@ class Paginas{
 	public function enlacesPaginasModel($enlaces){
 
 
-		if($enlaces == "ingresar" || $enlaces == "usuarios" || $enlaces == "editar" || $enlaces == "editarmaestros" || $enlaces == "editarcarreras" || $enlaces == "salir" || $enlaces == "maestros" || $enlaces == "alumnos" || $enlaces == "registraralumnos" || $enlaces == "registrarmaestros" || $enlaces == "registrarcarreras" || $enlaces == "carreras"){
+		if($enlaces == "ingresar" || $enlaces == "usuarios" || $enlaces == "editar" || $enlaces == "editarmaestros" || $enlaces == "editarcarreras" || $enlaces == "editartutorias" || $enlaces == "salir" || $enlaces == "maestros" || $enlaces == "alumnos" || $enlaces == "registraralumnos" || $enlaces == "registrarmaestros" || $enlaces == "registrarcarreras" || $enlaces == "carreras" || $enlaces == "tutorias" || $enlaces == "registrartutorias" || $enlaces == "reportes"){
 
 			$module =  "views/modules/".$enlaces.".php";
 		
@@ -41,6 +41,12 @@ class Paginas{
 		
 		}
 
+		else if($enlaces == "TutoriaRegistrada"){
+
+			$module =  "views/modules/tutorias.php";
+		
+		}
+
 		else if($enlaces == "fallo"){
 
 			$module =  "views/modules/ingresar.php";
@@ -56,6 +62,12 @@ class Paginas{
 		else if($enlaces == "MaestroEditado"){
 
 			$module =  "views/modules/maestros.php";
+		
+		}
+
+		else if($enlaces == "TutoriaEditada"){
+
+			$module =  "views/modules/tutorias.php";
 		
 		}
 

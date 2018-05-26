@@ -117,6 +117,24 @@ class MvcController{
 
 	}
 
+	public function vistaReportesAlumnosController(){
+
+		$respuesta = Datos::vistaAlumnosModel("alumnos");
+
+		#El constructor foreach proporciona un modo sencillo de iterar sobre arrays. foreach funciona sólo sobre arrays y objetos, y emitirá un error al intentar usarlo con una variable de un tipo diferente de datos o una variable no inicializada.
+
+		foreach($respuesta as $row => $item){
+		echo'<tr>
+				<td>'.$item["matricula"].'</td>
+				<td>'.$item["nombre"].'</td>
+				<td>'.$item["carrera"].'</td>
+				<td>'.$item["tutor"].'</td>
+			</tr>';
+
+		}
+
+	}
+
 	#EDITAR ALUMNO
 	#------------------------------------
 

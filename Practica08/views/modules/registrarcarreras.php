@@ -12,11 +12,13 @@ if(!$_SESSION["validar"]){
 
 ?>
 
-<h1>REGISTRO DE CARRERAS</h1>
+<br>
 
-	<hr>
+<h4>REGISTRO DE CARRERAS</h4>
 
-	<input type="button" value="Listado Carreras" onclick="window.location= 'index.php?action=carreras' ">
+	<hr><br>
+
+		<input type="button" style="left: -200px;" class="button radius tiny" value="Listado Carreras" onclick="window.location= 'index.php?action=carreras' ">
 
 	<br>
 

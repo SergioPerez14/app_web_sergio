@@ -19,13 +19,13 @@
 		nav ul{
 			position:relative;
 			margin:auto;
-			width:75%;
+			width:90%;
 			text-align: center;
 		}
 
 		nav ul li{
 			display:inline-block;
-			width:18%;
+			width:15%;
 			line-height: 50px;
 			list-style: none;
 		}

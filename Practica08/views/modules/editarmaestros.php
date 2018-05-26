@@ -12,7 +12,15 @@ if(!$_SESSION["validar"]){
 
 ?>
 
-<h1>EDITAR ALUMNO</h1>
+<br>
+
+<h4>EDITAR MAESTRO</h4>
+
+<hr><br>
+
+<strong><h4>Información General</h4></strong>
+
+<br>
 
 <form method="post">
 	
