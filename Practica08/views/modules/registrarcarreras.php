@@ -13,7 +13,7 @@ if(!$_SESSION["validar"]){
 ?>
 
 <br>
-
+<!-- Formulario para agregar carreras -->
 <h4>REGISTRO DE CARRERAS</h4>
 
 	<hr><br>
@@ -26,16 +26,17 @@ if(!$_SESSION["validar"]){
 
 	<form method="post">
 
+		<label>Nombre de la Carrera: </label>
 		<input type="text" placeholder="Nombre" name="nombre" required>
 
-		<input type="submit" value="Guardar">
+		<input type="submit" class="button radius tiny" style="background-color: #360956; left: -1px; width: 400px;" value="Guardar">
 
 	</form>
 
 <?php
-//Enviar los datos al controlador MvcController (es la clase principal de controller.php)
+//Enviar los datos al controlador MvcControllerCarreras
 $registro = new MvcControllerCarreras();
-//se invoca la función registroProductosController de la clase MvcController:
+//se invoca la función registroCarrerasController de la clase MvcControllerCarreras:
 $registro -> registroCarrerasController();
 
 if(isset($_GET["action"])){

@@ -63,6 +63,55 @@ class MvcController{
 
 	}
 
+	#OBTIENE LAS CARRERAS
+	#------------------------------------
+	public function ObtenerCarrerasController(){
+
+
+		$respuesta = Datos::ObtenerCarrerasModel("carreras");
+
+		foreach($respuesta as $row => $item){
+
+		echo '<option value='.$item["id"].'>'.$item["nombre"].'</option>';
+
+		}
+
+	}
+
+	#OBTIENE LOS TUTORES
+	#------------------------------------
+	public function ObtenerTutorController(){
+
+
+		$respuesta = Datos::ObtenerMaestrosModel("maestros");
+
+		foreach($respuesta as $row => $item){
+
+		echo '<option value='.$item["nempleado"].'>'.$item["nombre"].'</option>';
+
+		}
+
+	}
+
+	#OBTIENE MAESTROS PARA EDICION DE TUTORIA
+	#------------------------------------
+	public function ObtenerMTutorController(){
+
+		$respuesta = Datos::ObtenerMaestrosModel("maestros");
+
+		foreach($respuesta as $row => $item){
+
+		
+			if ($item["nempleado"] == $respuesta["nempleado"]) {
+				echo '<option value='.$item["nempleado"].'>'.$item["nombre"].'</option>';
+			}
+
+			echo '<option value='.$item["nempleado"].'>'.$item["nombre"].'</option>';
+
+		}
+
+	}
+
 	#INGRESO DE MAESTROS
 	#------------------------------------
 	public function ingresoMaestroController(){
@@ -106,9 +155,9 @@ class MvcController{
 		foreach($respuesta as $row => $item){
 		echo'<tr>
 				<td>'.$item["matricula"].'</td>
-				<td>'.$item["nombre"].'</td>
-				<td>'.$item["carrera"].'</td>
-				<td>'.$item["tutor"].'</td>
+				<td>'.$item["aname"].'</td>
+				<td>'.$item["cname"].'</td>
+				<td>'.$item["mname"].'</td>
 				<td><a href="index.php?action=editar&id='.$item["matricula"].'"><button class="button radius tiny secondary">Editar</button></a></td>
 				<td><a href="index.php?action=alumnos&idBorrar='.$item["matricula"].'"><button class="button radius tiny alert">Borrar</button></a></td>
 			</tr>';
@@ -117,6 +166,8 @@ class MvcController{
 
 	}
 
+	#AÑADE LA INFORMACION DE LA DATATABLE DE ALUMNOS
+	#------------------------------------
 	public function vistaReportesAlumnosController(){
 
 		$respuesta = Datos::vistaAlumnosModel("alumnos");
@@ -127,8 +178,8 @@ class MvcController{
 		echo'<tr>
 				<td>'.$item["matricula"].'</td>
 				<td>'.$item["nombre"].'</td>
-				<td>'.$item["carrera"].'</td>
-				<td>'.$item["tutor"].'</td>
+				<td>'.$item["cname"].'</td>
+				<td>'.$item["mname"].'</td>
 			</tr>';
 
 		}
@@ -138,7 +189,7 @@ class MvcController{
 	#EDITAR ALUMNO
 	#------------------------------------
 
-	public function editarAlumnosController(){
+	/*public function editarAlumnosController(){
 
 		$datosController = $_GET["id"];
 		$respuesta = Datos::editarAlumnosModel($datosController, "alumnos");
@@ -150,6 +201,52 @@ class MvcController{
 			 <input type="text" value="'.$respuesta["carrera"].'" name="carreraEditar" required>
 
 			 <input type="text" value="'.$respuesta["tutor"].'" name="tutorEditar" required>
+
+			 <input type="submit" class="button radius tiny" style="background-color: #360956; left: -1px; width: 400px;" value="Actualizar">';
+
+	}*/
+
+	public function editarAlumnosController(){
+
+		$carreras = Datos::vistaCarrerasModel("carreras");
+
+		$tutor = DatosMaestros::vistaMaestrosModel("maestros");
+
+		$datosController = $_GET["id"];
+		$respuesta = Datos::editarAlumnosModel($datosController, "alumnos");
+
+		echo'
+			<label>Matricula: </label>
+			<input type="text" value="'.$respuesta["matricula"].'" name="matriculaEditar" readonly>
+
+			<label>Nombre: </label>
+			 <input type="text" value="'.$respuesta["aname"].'" name="nombreEditar" required>
+
+			<label>Carrera: </label>
+ 			<select name="carreraEditar">';
+				foreach($carreras as $row => $item){
+
+					if ($item["id"] == $respuesta["acarrera"]) {
+						echo '<option value='.$item["id"].' selected>'.$item["nombre"].'</option>';
+					}
+
+					echo '<option value='.$item["id"].'>'.$item["nombre"].'</option>';
+
+				}
+		echo '</select>
+
+			<label>Tutor: </label>
+ 			<select name="tutorEditar">';
+				foreach($tutor as $row => $item){
+
+					if ($item["nempleado"] == $respuesta["nempleado"]) {
+						echo '<option value='.$item["nempleado"].' selected>'.$item["nombre"].'</option>';
+					}
+
+					echo '<option value='.$item["nempleado"].'>'.$item["nombre"].'</option>';
+
+				}
+		echo '</select>
 
 			 <input type="submit" class="button radius tiny" style="background-color: #360956; left: -1px; width: 400px;" value="Actualizar">';
 

@@ -27,11 +27,15 @@ $mvc -> pagina();
 
 ?>
 
+<?php //Script necesario para desplegar datatable ?>
 <script type="text/javascript">
 	
 	$(document).ready(function() {
 	    $("js-example-basic-single").select2();
 	    $('#example').DataTable();
+	    $('#example2').DataTable();
+	    $('#example3').DataTable();
+	    $('#example4').DataTable();
 	} );
 
 </script>

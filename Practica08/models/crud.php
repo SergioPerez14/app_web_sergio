@@ -55,10 +55,10 @@ class Datos extends Conexion{
 
 	}
 
-	#VISTA USUARIOS
+	#VISTA ALUMNOS
 	#-------------------------------------
 
-	public function vistaAlumnosModel($tabla){
+	/*public function vistaAlumnosModel($tabla){
 
 		$stmt = Conexion::conectar()->prepare("SELECT matricula, nombre, carrera, tutor FROM $tabla");	
 		$stmt->execute();
@@ -68,12 +68,24 @@ class Datos extends Conexion{
 
 		$stmt->close();
 
+	}*/
+
+	public function vistaAlumnosModel($tabla){
+
+		$stmt = Conexion::conectar()->prepare("SELECT *, carreras.nombre as cname, maestros.nombre as mname, alumnos.nombre as aname FROM $tabla INNER JOIN carreras on $tabla.carrera = carreras.id INNER JOIN maestros on $tabla.tutor = maestros.nempleado");	
+		$stmt->execute();
+
+		#fetchAll(): Obtiene todas las filas de un conjunto de resultados asociado al objeto PDOStatement. 
+		return $stmt->fetchAll();
+
+		$stmt->close();
+
 	}
 
-	#EDITAR USUARIO
+	#EDITAR ALUMNO
 	#-------------------------------------
 
-	public function editarAlumnosModel($datosModel, $tabla){
+	/*public function editarAlumnosModel($datosModel, $tabla){
 
 		$stmt = Conexion::conectar()->prepare("SELECT matricula, nombre, carrera, tutor FROM $tabla WHERE matricula = :matricula");
 		$stmt->bindParam(":matricula", $datosModel, PDO::PARAM_STR);	
@@ -83,9 +95,33 @@ class Datos extends Conexion{
 
 		$stmt->close();
 
+	}*/
+
+	public function editarAlumnosModel($datosModel, $tabla){
+
+		$stmt = Conexion::conectar()->prepare("SELECT *, carreras.nombre as cname, maestros.nombre as mname, alumnos.nombre as aname, alumnos.carrera as acarrera FROM alumnos INNER JOIN carreras on alumnos.carrera = carreras.id INNER JOIN maestros on alumnos.tutor = maestros.nempleado WHERE matricula = :matricula");
+		$stmt->bindParam(":matricula", $datosModel, PDO::PARAM_STR);	
+		$stmt->execute();
+
+		return $stmt->fetch();
+
+		$stmt->close();
+
 	}
 
-	#ACTUALIZAR USUARIO
+	public function vistaCarrerasModel($tabla){
+
+		$stmt = Conexion::conectar()->prepare("SELECT id,nombre FROM $tabla");	
+		$stmt->execute();
+
+		#fetchAll(): Obtiene todas las filas de un conjunto de resultados asociado al objeto PDOStatement. 
+		return $stmt->fetchAll();
+
+		$stmt->close();
+
+	}
+
+	#ACTUALIZAR ALUMNO
 	#-------------------------------------
 
 	public function actualizarAlumnosModel($datosModel, $tabla){
@@ -114,7 +150,7 @@ class Datos extends Conexion{
 	}
 
 
-	#BORRAR USUARIO
+	#BORRAR ALUMNO
 	#------------------------------------
 	public function borrarAlumnoModel($datosModel, $tabla){
 
@@ -136,6 +172,39 @@ class Datos extends Conexion{
 		$stmt->close();
 
 	}
+
+	public function ObtenerCarrerasModel($tabla){
+
+		
+
+		$stmt = Conexion::conectar()->prepare("SELECT id,nombre FROM $tabla");	
+		$stmt->execute();
+
+
+
+		#fetchAll(): Obtiene todas las filas de un conjunto de resultados asociado al objeto PDOStatement. 
+		return $stmt->fetchAll();
+
+		$stmt->close();
+
+	}
+
+	public function ObtenerMaestrosModel($tabla){
+
+		
+
+		$stmt = Conexion::conectar()->prepare("SELECT nempleado,nombre FROM $tabla");	
+		$stmt->execute();
+
+
+
+		#fetchAll(): Obtiene todas las filas de un conjunto de resultados asociado al objeto PDOStatement. 
+		return $stmt->fetchAll();
+
+		$stmt->close();
+
+	}
+
 
 }
 

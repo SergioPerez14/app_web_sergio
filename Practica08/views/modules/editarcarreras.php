@@ -23,7 +23,7 @@ if(!$_SESSION["validar"]){
 <form method="post">
 	
 	<?php
-
+	//Se manda a MvcControllerCarreras y este llama a editarCarreraController y actualizarCarreraController
 	$editarCarrera = new MvcControllerCarreras();
 	$editarCarrera -> editarCarreraController();
 	$editarCarrera -> actualizarCarreraController();

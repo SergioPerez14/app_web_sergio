@@ -1,5 +1,6 @@
 <?php
 
+//Validacion de sesion para no ingresar a una seccion sin antes estar logeado
 session_start();
 
 if(!$_SESSION["validar"]){
@@ -25,7 +26,7 @@ if(!$_SESSION["validar"]){
 <form method="post">
 	
 	<?php
-
+	//Se llama al controlador de maestros para editar o actualizar
 	$editarMaestros = new MvcControllerMaestros();
 	$editarMaestros -> editarMaestrosController();
 	$editarMaestros -> actualizarMaestrosController();

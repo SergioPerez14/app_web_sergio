@@ -40,26 +40,10 @@ class DatosMaestros extends Conexion{
 
 	}
 
-
-	#INGRESO USUARIO
-	#-------------------------------------
-	public function ingresoMaestroModel($datosModel, $tabla){
-
-		$stmt = Conexion::conectar()->prepare("SELECT email, password FROM $tabla WHERE email = :correo");	
-		$stmt->bindParam(":correo", $datosModel["email"], PDO::PARAM_STR);
-		$stmt->execute();
-
-		#fetch(): Obtiene una fila de un conjunto de resultados asociado al objeto PDOStatement. 
-		return $stmt->fetch();
-
-		$stmt->close();
-
-	}
-
-	#VISTA USUARIOS
+	#VISTA MAESTROS
 	#-------------------------------------
 
-	public function vistaMaestrosModel($tabla){
+	/*public function vistaMaestrosModel($tabla){
 
 		$stmt = Conexion::conectar()->prepare("SELECT nempleado, nombre, carrera, email, password FROM $tabla");	
 		$stmt->execute();
@@ -69,12 +53,42 @@ class DatosMaestros extends Conexion{
 
 		$stmt->close();
 
+	}*/
+
+	public function vistaMaestrosModel($tabla){
+
+		
+
+
+		$stmt = Conexion::conectar()->prepare("SELECT *, carreras.nombre as cname, $tabla.nombre, $tabla.email, $tabla.password FROM $tabla INNER JOIN carreras on $tabla.carrera = carreras.id");
+		
+		$stmt->execute();
+
+		$results = $stmt->fetchAll();
+
+		return $results;
+
+
+		$stmt->close();
+
 	}
 
-	#EDITAR USUARIO
+	#EDITAR MAESTROS
 	#-------------------------------------
+	public function editarMaestroModel($datosModel, $tabla){
 
-	public function editarMaestrosModel($datosModel, $tabla){
+
+		$stmt = Conexion::conectar()->prepare("SELECT *, carreras.nombre as cname, $tabla.nombre, $tabla.email, $tabla.carrera as mcarrera, $tabla.password FROM $tabla INNER JOIN carreras on $tabla.carrera = carreras.id WHERE nempleado = :id_m");
+		$stmt->bindParam(":id_m", $datosModel, PDO::PARAM_INT);	
+		$stmt->execute();
+
+		return $stmt->fetch();
+
+		$stmt->close();
+
+	}
+
+	/*public function editarMaestrosModel($datosModel, $tabla){
 
 		$stmt = Conexion::conectar()->prepare("SELECT nempleado, nombre, carrera, email, password FROM $tabla WHERE nempleado = :nempleado");
 		$stmt->bindParam(":nempleado", $datosModel, PDO::PARAM_STR);	
@@ -84,9 +98,9 @@ class DatosMaestros extends Conexion{
 
 		$stmt->close();
 
-	}
+	}*/
 
-	#ACTUALIZAR USUARIO
+	#ACTUALIZAR MAESTROS
 	#-------------------------------------
 
 	public function actualizarMaestrosModel($datosModel, $tabla){
@@ -116,7 +130,7 @@ class DatosMaestros extends Conexion{
 	}
 
 
-	#BORRAR USUARIO
+	#BORRAR MAESTROS
 	#------------------------------------
 	public function borrarMaestrosModel($datosModel, $tabla){
 

@@ -21,6 +21,7 @@ if(!$_SESSION["validar"]){
 
 	<br><br>
 
+	<!-- Tabla con el listado de carreras -->
 	<table border="1">
 		
 		<thead>
@@ -38,8 +39,8 @@ if(!$_SESSION["validar"]){
 		<tbody>
 			
 			<?php
-
-			$vistaCarrera = new MvcControllerCarreras();
+			//Se manda al controlador MvcControllerCarreras y llama a vistaCarrerasController y borrarCarrerasController
+			$vistaCarrera = new MvcControllerCarreras(); 
 			$vistaCarrera -> vistaCarrerasController();
 			$vistaCarrera -> borrarCarrerasController();
 

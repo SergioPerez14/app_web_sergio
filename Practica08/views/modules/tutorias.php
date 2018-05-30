@@ -13,7 +13,7 @@ if(!$_SESSION["validar"]){
 ?>
 
 <br>
-
+<!-- Listado de tutorias -->
 <h4>LISTADO TUTORIAS</h4>
 
 	<hr>
@@ -42,7 +42,7 @@ if(!$_SESSION["validar"]){
 		<tbody>
 			
 			<?php
-
+			//Se manda al controlador MvcControllerTutorias donde se encuentran vistaTutoriasController y borrarTutoriasController
 			$vistaTutorias= new MvcControllerTutorias();
 			$vistaTutorias -> vistaTutoriasController();
 			$vistaTutorias -> borrarTutoriasController();

@@ -8,7 +8,7 @@ require_once "conexion.php";
 // Se extiende cuando se requiere manipuar una funcion, en este caso se va a  manipular la función "conectar" del models/conexion.php:
 class DatosTutorias extends Conexion{
 
-	#REGISTRO DE USUARIOS
+	#REGISTRO DE TUTORIAS
 	#-------------------------------------
 	public function registroTutoriasModel($datosModel, $tabla){
 
@@ -41,28 +41,13 @@ class DatosTutorias extends Conexion{
 
 	}
 
-
-	#INGRESO USUARIO
-	#-------------------------------------
-	public function ingresoMaestroModel($datosModel, $tabla){
-
-		$stmt = Conexion::conectar()->prepare("SELECT email, password FROM $tabla WHERE email = :correo");	
-		$stmt->bindParam(":correo", $datosModel["email"], PDO::PARAM_STR);
-		$stmt->execute();
-
-		#fetch(): Obtiene una fila de un conjunto de resultados asociado al objeto PDOStatement. 
-		return $stmt->fetch();
-
-		$stmt->close();
-
-	}
-
-	#VISTA USUARIOS
+	#VISTA TUTORIAS
 	#-------------------------------------
 
 	public function vistaTutoriasModel($tabla){
 
-		$stmt = Conexion::conectar()->prepare("SELECT id, alumno, tutor, fecha, hora, tipotutoria, campo FROM $tabla");	
+		//$stmt = Conexion::conectar()->prepare("SELECT id, alumno, tutor, fecha, hora, tipotutoria, campo FROM $tabla");	
+		$stmt = Conexion::conectar()->prepare("SELECT *, maestros.nombre as mname, maestros.nempleado as mid FROM $tabla INNER JOIN maestros on maestros.nempleado = $tabla.tutor");	
 		$stmt->execute();
 
 		#fetchAll(): Obtiene todas las filas de un conjunto de resultados asociado al objeto PDOStatement. 
@@ -72,7 +57,7 @@ class DatosTutorias extends Conexion{
 
 	}
 
-	#EDITAR USUARIO
+	#EDITAR TUTORIAS
 	#-------------------------------------
 
 	public function editarTutoriaModel($datosModel, $tabla){
@@ -87,7 +72,7 @@ class DatosTutorias extends Conexion{
 
 	}
 
-	#ACTUALIZAR USUARIO
+	#ACTUALIZAR TUTORIAS
 	#-------------------------------------
 
 	public function actualizarTutoriaModel($datosModel, $tabla){
@@ -117,8 +102,28 @@ class DatosTutorias extends Conexion{
 
 	}
 
+	#
+	#-------------------------------------
+/*	public function vistaMaestrosModel($tabla){
 
-	#BORRAR USUARIO
+		
+
+
+		$stmt = Conexion::conectar()->prepare("SELECT *, carreras.nombre as cname, $tabla.nombre, $tabla.email, $tabla.password FROM $tabla INNER JOIN carreras on $tabla.carrera = carreras.id");
+		
+		$stmt->execute();
+
+		$results = $stmt->fetchAll();
+
+		return $results;
+
+
+		$stmt->close();
+
+	}
+
+*/
+	#BORRAR TUTORIAS
 	#------------------------------------
 	public function borrarTutoriasModel($datosModel, $tabla){
 

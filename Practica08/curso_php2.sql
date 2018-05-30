@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-05-2018 a las 06:47:29
+-- Tiempo de generación: 27-05-2018 a las 20:24:35
 -- Versión del servidor: 10.1.26-MariaDB
 -- Versión de PHP: 7.1.9
 
@@ -40,9 +40,8 @@ CREATE TABLE `alumnos` (
 --
 
 INSERT INTO `alumnos` (`matricula`, `nombre`, `carrera`, `tutor`) VALUES
-('1530030', 'Gera', 2, 1),
-('1530071', 'Luis', 2, 1),
-('1530072', 'Sergio', 2, 1),
+('1530071', 'Luis', 2, 3),
+('1530072', 'Sergio', 3, 3),
 ('1530073', 'Sergio', 1, 2);
 
 -- --------------------------------------------------------
@@ -64,8 +63,8 @@ INSERT INTO `carreras` (`id`, `nombre`) VALUES
 (1, 'ITI'),
 (2, 'MECA'),
 (3, 'ISA'),
-(4, 'PYMES'),
-(5, 'MANU');
+(8, 'PYMES'),
+(9, 'MANU');
 
 -- --------------------------------------------------------
 
@@ -86,8 +85,9 @@ CREATE TABLE `maestros` (
 --
 
 INSERT INTO `maestros` (`nempleado`, `carrera`, `nombre`, `email`, `password`) VALUES
-(1, 1, 'Luis S', 'mail@mail.com', '1234'),
-(648, 3, 'Sergio', 'mail@mail.mx', '123');
+(1, 1, 'Luis S', 'mail@mail.com', '12345'),
+(2, 3, 'Sergio', 'mail@mail.mx', '123'),
+(3, 2, 'Oliver', 'L@mail.com', 'allego');
 
 -- --------------------------------------------------------
 
@@ -97,13 +97,22 @@ INSERT INTO `maestros` (`nempleado`, `carrera`, `nombre`, `email`, `password`) V
 
 CREATE TABLE `tutorias` (
   `id` int(11) NOT NULL,
-  `alumno` int(11) NOT NULL,
+  `alumno` varchar(10) NOT NULL,
   `tutor` int(11) NOT NULL,
-  `fecha` date NOT NULL,
-  `hora` time NOT NULL,
+  `fecha` varchar(11) NOT NULL,
+  `hora` varchar(10) NOT NULL,
   `tipotutoria` varchar(20) NOT NULL,
   `campo` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tutorias`
+--
+
+INSERT INTO `tutorias` (`id`, `alumno`, `tutor`, `fecha`, `hora`, `tipotutoria`, `campo`) VALUES
+(1, '1530073', 2, '2018-05-11', '20:00', 'Grupal', 'Mineria de Datos'),
+(5, '1530072', 1, '2018-05-26', '17:00', 'Grupal', 'Seguridad'),
+(6, '1530073', 3, '2018-05-26', '17:00', 'Individual', 'Redes');
 
 --
 -- Índices para tablas volcadas
@@ -113,7 +122,9 @@ CREATE TABLE `tutorias` (
 -- Indices de la tabla `alumnos`
 --
 ALTER TABLE `alumnos`
-  ADD PRIMARY KEY (`matricula`);
+  ADD PRIMARY KEY (`matricula`),
+  ADD KEY `carrera` (`carrera`),
+  ADD KEY `tutor` (`tutor`);
 
 --
 -- Indices de la tabla `carreras`
@@ -125,13 +136,16 @@ ALTER TABLE `carreras`
 -- Indices de la tabla `maestros`
 --
 ALTER TABLE `maestros`
-  ADD PRIMARY KEY (`nempleado`);
+  ADD PRIMARY KEY (`nempleado`),
+  ADD KEY `carrera` (`carrera`);
 
 --
 -- Indices de la tabla `tutorias`
 --
 ALTER TABLE `tutorias`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `alumno` (`alumno`),
+  ADD KEY `tutor` (`tutor`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -141,13 +155,37 @@ ALTER TABLE `tutorias`
 -- AUTO_INCREMENT de la tabla `carreras`
 --
 ALTER TABLE `carreras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `tutorias`
 --
 ALTER TABLE `tutorias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `alumnos`
+--
+ALTER TABLE `alumnos`
+  ADD CONSTRAINT `alumnos_ibfk_1` FOREIGN KEY (`carrera`) REFERENCES `carreras` (`id`),
+  ADD CONSTRAINT `alumnos_ibfk_2` FOREIGN KEY (`tutor`) REFERENCES `maestros` (`nempleado`);
+
+--
+-- Filtros para la tabla `maestros`
+--
+ALTER TABLE `maestros`
+  ADD CONSTRAINT `maestros_ibfk_1` FOREIGN KEY (`carrera`) REFERENCES `carreras` (`id`);
+
+--
+-- Filtros para la tabla `tutorias`
+--
+ALTER TABLE `tutorias`
+  ADD CONSTRAINT `tutorias_ibfk_1` FOREIGN KEY (`alumno`) REFERENCES `alumnos` (`matricula`),
+  ADD CONSTRAINT `tutorias_ibfk_2` FOREIGN KEY (`tutor`) REFERENCES `maestros` (`nempleado`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

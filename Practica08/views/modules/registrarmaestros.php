@@ -12,36 +12,50 @@ if(!$_SESSION["validar"]){
 
 ?>
 
-<h1>REGISTRO DE ALUMNOS</h1>
+<br>
+<!-- Formulario para el registro de  maestros -->
+<h4>REGISTRO DE MAESTROS</h4>
 
-	<hr>
+	<hr><br>
 
-	<input type="button" value="Listado Alumnos" onclick="window.location= 'index.php?action=alumnos' ">
+		<input type="button" style="left: -200px;" class="button radius tiny" value="Listado Maestros" onclick="window.location= 'index.php?action=maestros' ">
 
 	<br>
 
-	<strong><p>Información General</p></strong>
+	<strong><h4>Información General</h4></strong>
+
+	<br>
 
 	<form method="post">
 		
+		<label>No. Empleado: </label>
 		<input type="text" placeholder="No. Empleado" name="nempleado" required>
 
+		<label>Nombre: </label>
 		<input type="text" placeholder="Nombre" name="nombre" required>
 		
-		<input type="text" placeholder="Carrera" name="carrera" required>
-			
+		<label>Carrera: </label>
+		<select name="carrera">
+		  	<?php 
+		  		$carreras = new MvcController();
+		  		$carreras -> ObtenerCarrerasController();
+		  	?>
+		</select>
+		
+		<label>Email: </label>
 		<input type="text" placeholder="Email" name="email" required>
 
+		<label>Contraseña</label>
 		<input type="text" placeholder="Contraseña" name="password" required>
 
-		<input type="submit" value="Enviar">
+		<input type="submit" class="button radius tiny" style="background-color: #360956; left: -1px; width: 400px;" value="Enviar">
 
 	</form>
 
 <?php
-//Enviar los datos al controlador MvcController (es la clase principal de controller.php)
+//Enviar los datos al controlador MvcControllerMaestros
 $registro = new MvcControllerMaestros();
-//se invoca la función registroProductosController de la clase MvcController:
+//se invoca la función registroMaestroController de la clase MvcControllerMaestros:
 $registro -> registroMaestroController();
 
 if(isset($_GET["action"])){

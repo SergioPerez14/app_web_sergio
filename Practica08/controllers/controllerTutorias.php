@@ -33,7 +33,7 @@ class MvcControllerTutorias{
 
 	}
 
-	#REGISTRO DE ALUMNOS
+	#REGISTRO DE TUTORIAS
 	#------------------------------------
 	public function registroTutoriasController(){
 
@@ -65,7 +65,7 @@ class MvcControllerTutorias{
 
 	}
 
-	#INGRESO DE MAESTROS
+	#INGRESO DE TUTORIAS
 	#------------------------------------
 	public function ingresoMaestroController(){
 
@@ -96,7 +96,7 @@ class MvcControllerTutorias{
 
 	}
 
-	#VISTA DE ALUMNOS
+	#VISTA DE TUTORIAS
 	#------------------------------------
 
 	public function vistaTutoriasController(){
@@ -108,7 +108,7 @@ class MvcControllerTutorias{
 		foreach($respuesta as $row => $item){
 		echo'<tr>
 				<td>'.$item["alumno"].'</td>
-				<td>'.$item["tutor"].'</td>
+				<td>'.$item["mname"].'</td>
 				<td>'.$item["fecha"].'</td>
 				<td>'.$item["hora"].'</td>
 				<td>'.$item["tipotutoria"].'</td>
@@ -121,7 +121,31 @@ class MvcControllerTutorias{
 
 	}
 
-	#EDITAR ALUMNO
+	#VISTA DE TUTORIAS
+	#------------------------------------
+
+	public function vistaReportesTutoriasController(){
+
+		$respuesta = DatosTutorias::vistaTutoriasModel("tutorias");
+
+		#El constructor foreach proporciona un modo sencillo de iterar sobre arrays. foreach funciona sólo sobre arrays y objetos, y emitirá un error al intentar usarlo con una variable de un tipo diferente de datos o una variable no inicializada.
+
+		foreach($respuesta as $row => $item){
+		echo'<tr>
+				<td>'.$item["alumno"].'</td>
+				<td>'.$item["mname"].'</td>
+				<td>'.$item["fecha"].'</td>
+				<td>'.$item["hora"].'</td>
+				<td>'.$item["tipotutoria"].'</td>
+				<td>'.$item["campo"].'</td>
+			</tr>';
+
+		}
+
+	}
+
+
+	#EDITAR TUTORIAS
 	#------------------------------------
 
 	public function editarTutoriaController(){
@@ -129,25 +153,47 @@ class MvcControllerTutorias{
 		$datosController = $_GET["id"];
 		$respuesta = DatosTutorias::editarTutoriaModel($datosController, "tutorias");
 
-		echo'<input type="text" value="'.$respuesta["id"].'" name="ntutoriaEditar" readonly>
+		echo'
+			<label>ID Tutoria: </label>
+			<input type="text" value="'.$respuesta["id"].'" name="ntutoriaEditar" readonly>
 
+			<label>Matricula Alumno: </label>
 			 <input type="text" value="'.$respuesta["alumno"].'" name="alumnoEditar" readonly>
 
-			 <input type="text" value="'.$respuesta["tutor"].'" name="tutorEditar" required>
+			 <label>Tutor: </label>
+	 		<select name="tutorEditar">';
+				  	 
+				  		$tutor = new MvcController();
+				  		$tutor -> ObtenerMTutorController();
+				  	
+			echo '</select>
 
+			 <label>Fecha: </label>
 			 <input type="text" value="'.$respuesta["fecha"].'" name="fechaEditar" required>
  
+ 			<label>Hora: </label>
  			 <input type="text" value="'.$respuesta["hora"].'" name="horaEditar" required>
- 
- 			 <input type="text" value="'.$respuesta["tipotutoria"].'" name="tipoEditar" required>
 
+			<label>Tipo de Tutoria: </label>
+ 			<select name="tipoEditar">';
+
+				echo '<option selected>'.$respuesta["tipotutoria"].'</option>';
+
+				if ($respuesta["tipotutoria"] == 'Grupal') {
+						echo "<option>Individual</option>";					
+				}else
+						echo "<option>Grupal</option>";
+
+		  	echo '</select>
+
+			<label>Tema: </label>
 			 <input type="text" value="'.$respuesta["campo"].'" name="temaEditar" required>
 
 			 <input type="submit" class="button radius tiny" style="background-color: #360956; left: -1px; width: 400px;" value="Actualizar">';
 
 	}
 
-	#ACTUALIZAR ALUMNO
+	#ACTUALIZAR TUTORIAS
 	#------------------------------------
 	public function actualizarTutoriaController(){
 
@@ -179,7 +225,7 @@ class MvcControllerTutorias{
 	
 	}
 
-	#BORRAR ALUMNO
+	#BORRAR TUTORIAS
 	#------------------------------------
 	public function borrarTutoriasController(){
 

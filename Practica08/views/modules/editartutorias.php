@@ -1,5 +1,6 @@
 <?php
 
+//Validacion de sesion para no ingresar a una seccion sin antes estar logeado
 session_start();
 
 if(!$_SESSION["validar"]){
@@ -26,7 +27,7 @@ if(!$_SESSION["validar"]){
 <form method="post">
 	
 	<?php
-
+	//Se llama al controlador de tutorias, ademas se llama a editar y actualizar tutoria
 	$editarTutorias = new MvcControllerTutorias();
 	$editarTutorias -> editarTutoriaController();
 	$editarTutorias -> actualizarTutoriaController();

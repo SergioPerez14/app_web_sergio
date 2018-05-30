@@ -13,7 +13,7 @@ if(!$_SESSION["validar"]){
 ?>
 
 <br>
-
+<!-- Formulario para la insercion de Alumnos -->
 <h4>REGISTRO DE ALUMNOS</h4>
 
 	<hr><br>
@@ -28,15 +28,33 @@ if(!$_SESSION["validar"]){
 
 	<form method="post">
 		
+		<label>Matricula: </label>
 		<input type="text" placeholder="Matricula" name="matricula" required>
 
+		<label>Nombre: </label>
 		<input type="text" placeholder="Nombre" name="nombre" required>
 		
-		<input type="text" placeholder="Carrera" name="carrera" required>
-			
-		<input type="text" placeholder="Tutor" name="tutor" required>
+		<label>Carrera: </label>
+		<!--<input type="text" placeholder="Carrera" name="carrera" required> -->
 
-		<input type="submit" class="button radius tiny" style="background-color: #360956; left: -1px; width: 400px; value="Enviar">
+		<select name="carrera">
+		  	<?php 
+		  		$carreras = new MvcController();
+		  		$carreras -> ObtenerCarrerasController();
+		  	?>
+		</select>
+
+		<label>Tutor: </label>
+		<select name="tutor">
+		  	<?php 
+		  		$tutor = new MvcController();
+		  		$tutor -> ObtenerTutorController();
+		  	?>
+		</select>
+			
+		<!--<input type="text" placeholder="Tutor" name="tutor" required> -->
+
+		<input type="submit" class="button radius tiny" style="background-color: #360956; left: -1px; width: 400px;" value="Enviar">
 
 	</form>
 

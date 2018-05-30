@@ -25,7 +25,7 @@ if(!$_SESSION["validar"]){
 <form method="post">
 	
 	<?php
-
+	//Se requiere del controlador MvcController, ademas de editarAlumnosController y actualizarAlumnosController
 	$editarAlumnos = new MvcController();
 	$editarAlumnos -> editarAlumnosController();
 	$editarAlumnos -> actualizarAlumnosController();

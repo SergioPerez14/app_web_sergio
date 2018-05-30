@@ -22,6 +22,7 @@ if(!$_SESSION["validar"]){
 
 	<br>
 
+	<!-- Tabla con el listado de alumnos -->
 	<table border="1">
 		
 		<thead>
@@ -41,7 +42,7 @@ if(!$_SESSION["validar"]){
 		<tbody>
 			
 			<?php
-
+			//Se manda al controler MvcController y llama a vistaAlumnosController y borrarAlumnosController
 			$vistaAlumno= new MvcController();
 			$vistaAlumno -> vistaAlumnosController();
 			$vistaAlumno -> borrarAlumnosController();

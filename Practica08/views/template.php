@@ -6,6 +6,11 @@
 	<title>Practica 08</title>
     <link rel="stylesheet" href="views/css/foundation.css" />
     <script src="views/js/vendor/modernizr.js"></script>
+    <script src="views/js/vendor/jquery.js"></script>
+    <link rel="stylesheet" href="views/css/select2.min.css" />
+    <script src="views/js/select2.min.js"></script>
+    <script src="views/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="views/css/jquery.dataTables.min.js">
 	<style>
 
 		nav{
@@ -103,6 +108,7 @@
 <section>
 
 <?php 
+ob_start();
 
 $mvc = new MvcController();
 $mvc -> enlacesPaginasController();

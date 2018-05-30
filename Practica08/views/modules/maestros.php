@@ -20,7 +20,7 @@ if(!$_SESSION["validar"]){
 	<input type="button" style="left: -200px" class="button radius tiny success" value="Nuevo Maestro" onclick="window.location= 'index.php?action=registrarmaestros' ">
 
 	<br><br>
-
+	<!-- Tabal del listado de maestros -->
 	<table border="1">
 		
 		<thead>
@@ -41,7 +41,7 @@ if(!$_SESSION["validar"]){
 		<tbody>
 			
 			<?php
-
+			//Se manda llamar al controlador de maestros, donde se manda llamar a la vista de maestros y a borrar maestros
 			$vistaMaestro= new MvcControllerMaestros();
 			$vistaMaestro -> vistaMaestrosController();
 			$vistaMaestro -> borrarMaestrosController();
@@ -54,6 +54,7 @@ if(!$_SESSION["validar"]){
 
 <?php
 
+//Se valida que si action recibe el valor MaestroEditado se redirija a esa pagina
 if(isset($_GET["action"])){
 
 	if($_GET["action"] == "MaestroEditado"){

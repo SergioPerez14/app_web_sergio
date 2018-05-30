@@ -33,7 +33,7 @@ class MvcControllerCarreras{
 
 	}
 
-	#REGISTRO DE ALUMNOS
+	#REGISTRO DE CARRERAS
 	#------------------------------------
 	public function registroCarrerasController(){
 
@@ -60,37 +60,6 @@ class MvcControllerCarreras{
 
 	}
 
-	#INGRESO DE MAESTROS
-	#------------------------------------
-	public function ingresoMaestroController(){
-
-		if(isset($_POST["usuarioIngreso"])){
-
-			$datosController = array( "email"=>$_POST["usuarioIngreso"], 
-								      "password"=>$_POST["passwordIngreso"]);
-
-			$respuesta = Datos::ingresoMaestroModel($datosController, "maestros");
-			//Valiación de la respuesta del modelo para ver si es un usuario correcto.
-			if($respuesta["email"] == $_POST["usuarioIngreso"] && $respuesta["password"] == $_POST["passwordIngreso"]){
-
-				session_start();
-
-				$_SESSION["validar"] = true;
-
-				header("location:index.php?action=alumnos");
-
-			}
-
-			else{
-
-				header("location:index.php?action=fallo");
-
-			}
-
-		}	
-
-	}
-
 	#VISTA DE ALUMNOS
 	#------------------------------------
 
@@ -112,7 +81,27 @@ class MvcControllerCarreras{
 
 	}
 
-	#EDITAR ALUMNO
+	#VISTA DE REPORTE DE CARRERAS
+	#------------------------------------
+
+	public function vistaReportesCarreraController(){
+
+		$respuesta = DatosCarreras::vistaCarrerasModel("carreras");
+
+		#El constructor foreach proporciona un modo sencillo de iterar sobre arrays. foreach funciona sólo sobre arrays y objetos, y emitirá un error al intentar usarlo con una variable de un tipo diferente de datos o una variable no inicializada.
+
+		foreach($respuesta as $row => $item){
+		echo'<tr>
+				<td>'.$item["id"].'</td>
+				<td>'.$item["nombre"].'</td>
+			</tr>';
+
+		}
+
+	}
+
+
+	#EDITAR CARRERA
 	#------------------------------------
 
 	public function editarCarreraController(){
@@ -120,15 +109,18 @@ class MvcControllerCarreras{
 		$datosController = $_GET["id"];
 		$respuesta = DatosCarreras::editarCarreraModel($datosController, "carreras");
 
-		echo'<input type="text" value="'.$respuesta["id"].'" name="idEditar" readonly>
+		echo'
+			<labe>ID Carrera:</label>
+			<input type="text" value="'.$respuesta["id"].'" name="idEditar" readonly>
 
+			<labe>Carrera:</label>
 			 <input type="text" value="'.$respuesta["nombre"].'" name="nombreEditar" required>
 
 			 <input type="submit" class="button radius tiny" style="background-color: #360956; left: -1px; width: 400px;" value="Actualizar">';
 
 	}
 
-	#ACTUALIZAR ALUMNO
+	#ACTUALIZAR CARRERA
 	#------------------------------------
 	public function actualizarCarreraController(){
 
@@ -155,7 +147,7 @@ class MvcControllerCarreras{
 	
 	}
 
-	#BORRAR ALUMNO
+	#BORRAR CARRERA
 	#------------------------------------
 	public function borrarCarrerasController(){
 

@@ -36,23 +36,7 @@ class DatosCarreras extends Conexion{
 
 	}
 
-
-	#INGRESO USUARIO
-	#-------------------------------------
-	public function ingresoMaestroModel($datosModel, $tabla){
-
-		$stmt = Conexion::conectar()->prepare("SELECT email, password FROM $tabla WHERE email = :correo");	
-		$stmt->bindParam(":correo", $datosModel["email"], PDO::PARAM_STR);
-		$stmt->execute();
-
-		#fetch(): Obtiene una fila de un conjunto de resultados asociado al objeto PDOStatement. 
-		return $stmt->fetch();
-
-		$stmt->close();
-
-	}
-
-	#VISTA USUARIOS
+	#VISTA CARRERAS
 	#-------------------------------------
 
 	public function vistaCarrerasModel($tabla){
@@ -67,7 +51,7 @@ class DatosCarreras extends Conexion{
 
 	}
 
-	#EDITAR USUARIO
+	#EDITAR CARRERA
 	#-------------------------------------
 
 	public function editarCarreraModel($datosModel, $tabla){
@@ -82,7 +66,7 @@ class DatosCarreras extends Conexion{
 
 	}
 
-	#ACTUALIZAR USUARIO
+	#ACTUALIZAR CARRERA
 	#-------------------------------------
 
 	public function actualizarCarreraModel($datosModel, $tabla){
@@ -109,7 +93,7 @@ class DatosCarreras extends Conexion{
 	}
 
 
-	#BORRAR USUARIO
+	#BORRAR CARRERA
 	#------------------------------------
 	public function borrarCarreraModel($datosModel, $tabla){
 

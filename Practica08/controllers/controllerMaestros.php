@@ -33,7 +33,7 @@ class MvcControllerMaestros{
 
 	}
 
-	#REGISTRO DE ALUMNOS
+	#REGISTRO DE MAESTROS
 	#------------------------------------
 	public function registroMaestroController(){
 
@@ -64,38 +64,7 @@ class MvcControllerMaestros{
 
 	}
 
-	#INGRESO DE MAESTROS
-	#------------------------------------
-	public function ingresoMaestroController(){
-
-		if(isset($_POST["usuarioIngreso"])){
-
-			$datosController = array( "email"=>$_POST["usuarioIngreso"], 
-								      "password"=>$_POST["passwordIngreso"]);
-
-			$respuesta = Datos::ingresoMaestroModel($datosController, "maestros");
-			//Valiación de la respuesta del modelo para ver si es un usuario correcto.
-			if($respuesta["email"] == $_POST["usuarioIngreso"] && $respuesta["password"] == $_POST["passwordIngreso"]){
-
-				session_start();
-
-				$_SESSION["validar"] = true;
-
-				header("location:index.php?action=alumnos");
-
-			}
-
-			else{
-
-				header("location:index.php?action=fallo");
-
-			}
-
-		}	
-
-	}
-
-	#VISTA DE ALUMNOS
+	#VISTA DE MAESTROS
 	#------------------------------------
 
 	public function vistaMaestrosController(){
@@ -108,7 +77,7 @@ class MvcControllerMaestros{
 		echo'<tr>
 				<td>'.$item["nempleado"].'</td>
 				<td>'.$item["nombre"].'</td>
-				<td>'.$item["carrera"].'</td>
+				<td>'.$item["cname"].'</td>
 				<td>'.$item["email"].'</td>
 				<td>'.$item["password"].'</td>
 				<td><a href="index.php?action=editarmaestros&id='.$item["nempleado"].'"><button class="button radius tiny secondary">Editar</button></a></td>
@@ -119,29 +88,69 @@ class MvcControllerMaestros{
 
 	}
 
-	#EDITAR ALUMNO
+	#VISTA DE REPORTE DE MAESTROS
+	#------------------------------------
+
+	public function vistaReportesMaestrosController(){
+
+		$respuesta = DatosMaestros::vistaMaestrosModel("maestros");
+
+		#El constructor foreach proporciona un modo sencillo de iterar sobre arrays. foreach funciona sólo sobre arrays y objetos, y emitirá un error al intentar usarlo con una variable de un tipo diferente de datos o una variable no inicializada.
+
+		foreach($respuesta as $row => $item){
+		echo'<tr>
+				<td>'.$item["nempleado"].'</td>
+				<td>'.$item["nombre"].'</td>
+				<td>'.$item["cname"].'</td>
+				<td>'.$item["email"].'</td>
+				<td>'.$item["password"].'</td>
+			</tr>';
+
+		}
+
+	}
+
+	#EDITAR MAESTROS
 	#------------------------------------
 
 	public function editarMaestrosController(){
 
+		$carreras = Datos::vistaCarrerasModel("carreras");
+
 		$datosController = $_GET["id"];
-		$respuesta = DatosMaestros::editarMaestrosModel($datosController, "maestros");
+		$respuesta = DatosMaestros::editarMaestroModel($datosController, "maestros");
 
-		echo'<input type="text" value="'.$respuesta["nempleado"].'" name="empleadoEditar" readonly>
+		echo'
+			<label>No. Empleado: </label>
+			<input type="text" value="'.$respuesta["nempleado"].'" name="empleadoEditar" readonly>
 
+			 <label>Nombre: </label>
 			 <input type="text" value="'.$respuesta["nombre"].'" name="nombreEditar" required>
 
-			 <input type="text" value="'.$respuesta["carrera"].'" name="carreraEditar" required>
+			<label>Carrera: </label>
+ 			<select name="carreraEditar">';
+				foreach($carreras as $row => $item){
 
+					if ($item["id"] == $respuesta["mcarrera"]) {
+						echo '<option value='.$item["id"].' selected>'.$item["nombre"].'</option>';
+					}
+
+					echo '<option value='.$item["id"].'>'.$item["nombre"].'</option>';
+
+				}
+		echo '</select>
+
+			 <label>Correo: </label>
 			 <input type="text" value="'.$respuesta["email"].'" name="emailEditar" required>
 
+			 <label>Contraseña: </label>
 			 <input type="text" value="'.$respuesta["password"].'" name="contraEditar" required>
 
 			 <input type="submit" class="button radius tiny" style="background-color: #360956; left: -1px; width: 400px;" value="Actualizar">';
 
 	}
 
-	#ACTUALIZAR ALUMNO
+	#ACTUALIZAR MAESTROS
 	#------------------------------------
 	public function actualizarMaestrosController(){
 
@@ -171,7 +180,7 @@ class MvcControllerMaestros{
 	
 	}
 
-	#BORRAR ALUMNO
+	#BORRAR MAESTROS
 	#------------------------------------
 	public function borrarMaestrosController(){
 
