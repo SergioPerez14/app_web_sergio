@@ -109,7 +109,7 @@ class MvcController{
 
 				$_SESSION["validar"] = true;
 
-				header("location:index.php?action=usuarios");
+				header("location:index.php?action=dashboard");
 
 			}
 
@@ -138,8 +138,8 @@ class MvcController{
 				<td>'.$item["nombre"].'</td>
 				<td>'.$item["username"].'</td>
 				<td>'.$item["password"].'</td>
-				<td><a href="index.php?action=editar&id='.$item["id_usuario"].'"><button class="button radius tiny secondary">Editar</button></a></td>
-				<td><a href="index.php?action=usuarios&idBorrar='.$item["id_usuario"].'"><button class="button radius tiny alert">Borrar</button></a></td>
+				<td><a href="index.php?action=editar&id='.$item["id_usuario"].'"><button class="btn btn-block btn-secondary">Editar</button></a></td>
+				<td><a href="index.php?action=usuarios&idBorrar='.$item["id_usuario"].'"><button class="btn btn-block btn-danger">Borrar</button></a></td>
 			</tr>';
 
 		}
@@ -162,8 +162,8 @@ class MvcController{
 				<td>'.$item["descripcion"].'</td>
 				<td>'.$item["cantidad"].'</td>
 				<td>$'.$item["preciounitario"].'</td>
-				<td><a href="index.php?action=editarProducto&id='.$item["id_producto"].'"><button class="button radius tiny secondary">Editar</button></a></td>
-				<td><a href="index.php?action=productos&idBorrar='.$item["id_producto"].'"><button class="button radius tiny alert">Borrar</button></a></td>
+				<td><a href="index.php?action=editarProducto&id='.$item["id_producto"].'"><button class="btn btn-block btn-secondary">Editar</button></a></td>
+				<td><a href="index.php?action=productos&idBorrar='.$item["id_producto"].'"><button class="btn btn-block btn-danger">Borrar</button></a></td>
 			</tr>';
 
 		}

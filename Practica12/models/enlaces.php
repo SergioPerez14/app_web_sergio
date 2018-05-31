@@ -5,11 +5,11 @@ class Paginas{
 	public function enlacesPaginasModel($enlaces){
 
 
-		if($enlaces == "ingresar" || $enlaces == "usuarios" || $enlaces == "editar" || $enlaces == "salir" || $enlaces == "registrarUsuario" || $enlaces == "productos" || $enlaces == "registrarProducto" || $enlaces == "editarProducto"){
+		if($enlaces == "ingresar" || $enlaces == "usuarios" || $enlaces == "editar" || $enlaces == "salir" || $enlaces == "registrarUsuario" || $enlaces == "productos" || $enlaces == "registrarProducto" || $enlaces == "editarProducto" || $enlaces == "dashboard"){
 
 			$module =  "views/modules/".$enlaces.".php";
 		
-		}
+		}	
 
 		else if($enlaces == "index"){
 
