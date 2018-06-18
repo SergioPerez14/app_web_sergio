@@ -269,6 +269,23 @@ class Datos extends Conexion{
 	#VISTA PRODUCTOS VENDIDOS
 	#-------------------------------------
 
+	public function vistaProductosVendidosModel($tabla, $tienda){
+
+		$stmt = Conexion::conectar()->prepare("SELECT id_producto_vendido, id_producto, cantidad, total, id_venta, id_tienda FROM $tabla WHERE id_tienda = $tienda");	
+
+		//$stmt = Conexion::conectar()->prepare("SELECT id_producto_vendido, t.id_producto, t.cantidad, t.total, t.id_venta, p.preciounitario FROM $tabla as t INNER JOIN productos as p on p.id_producto = t.id_producto INNER JOIN ventas as v on t.id_venta = :id WHERE t.id_tienda = $tienda");	
+		$stmt->execute();
+
+		#fetchAll(): Obtiene todas las filas de un conjunto de resultados asociado al objeto PDOStatement. 
+		return $stmt->fetchAll();
+
+		$stmt->close();
+
+	}	
+
+	#VISTA DETALLES PRODUCTOS VENDIDOS
+	#-------------------------------------
+
 	public function vistaProductosVendModel($tabla, $tienda, $datosModel){
 
 		$stmt = Conexion::conectar()->prepare("SELECT id_producto_vendido, id_producto, cantidad, total, id_venta, id_tienda FROM $tabla WHERE id_tienda = $tienda and id_venta = :id");	
@@ -523,6 +540,29 @@ class Datos extends Conexion{
 		$stmt->close();
 
 	}	
+
+	#ACTUALIZAR Stock
+	#-------------------------------------
+/*
+	public function actualizarProductoModel2($cantidad, $tabla,$id){
+
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET stock = stock - $cantidadVenta WHERE id_producto = $id");
+
+		if($stmt->execute()){
+
+			return "success";
+
+		}
+
+		else{
+
+			return "error";
+
+		}
+
+		$stmt->close();
+
+	}	*/
 
 	#ACTUALIZAR PRODUCTO
 	#-------------------------------------
@@ -889,6 +929,28 @@ class Datos extends Conexion{
 
 	#OBTENER LOS PRODUCTOS
 	#------------------------------------
+	/*public function seleccionarProductosVentaModel($tabla,$tienda,$id){
+
+		$stmt = Conexion::conectar()->prepare("SELECT id_producto,nombre,stock,preciounitario FROM $tabla WHERE id_tienda = $tienda and id_producto = $id");	
+		$stmt->execute();
+		return $stmt->fetchALL();
+		$stmt->close();
+
+	}	*/
+
+	#OBTENER LOS PRODUCTOS
+	#------------------------------------
+	public function seleccionarProdLowStockModel($tabla,$tienda){
+
+		$stmt = Conexion::conectar()->prepare("SELECT id_producto,nombre,stock,preciounitario FROM $tabla WHERE id_tienda = $tienda and stock < 5");	
+		$stmt->execute();
+		return $stmt->fetchAll();
+		$stmt->close();
+
+	}	
+
+	#OBTENER LOS PRODUCTOS
+	#------------------------------------
 	public function seleccionarProductos2Model($tabla,$tienda,$datosModel){
 
 		$stmt = Conexion::conectar()->prepare("SELECT preciounitario FROM $tabla WHERE id_tienda = $tienda and id_producto = :id");
@@ -917,6 +979,24 @@ class Datos extends Conexion{
 		$stmt->close();
 
 	}	
+
+	public function seleccionarUltimoProdVendidoModel($tabla,$tienda){
+
+		$stmt = Conexion::conectar()->prepare("SELECT id_producto_vendido,id_producto FROM $tabla WHERE id_tienda = $tienda ORDER BY id_producto_vendido DESC LIMIT 1");	
+		$stmt->execute();
+		return $stmt->fetch();
+		$stmt->close();
+
+	}
+
+	/*public function selUltimoProdVendidoModel($tabla,$tienda,$id){
+
+		$stmt = Conexion::conectar()->prepare("SELECT cantidad FROM $tabla WHERE id_tienda = $tienda and id_producto_vendido = $id ORDER BY id_producto_vendido DESC LIMIT 1");	
+		$stmt->execute();
+		return $stmt->fetch();
+		$stmt->close();
+
+	}*/
 
 }
 

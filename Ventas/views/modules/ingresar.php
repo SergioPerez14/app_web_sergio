@@ -21,7 +21,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Sistema de Punto de Venta</title>
+  <title>POS | Login</title>
 </head>
 <body class="hold-transition login-page" style="background-color: #05758c;">
 <div class="login-box">

@@ -17,7 +17,7 @@ if(!$_SESSION["validar"]){
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Sistema Punto de Venta</title>
+  <title>POS | Dashboard</title>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -125,32 +125,53 @@ if(!$_SESSION["validar"]){
         <!-- /.row -->
 
 
-       <!-- Calendar -->
-            <div class="card bg-danger-gradient">
-              <div class="card-header no-border">
-
-                <h3 class="card-title">
-                  <i class="fa fa-calendar"></i>
-                  Calendario
-                </h3>
-                <!-- tools card  -->
-                <div class="card-tools">
-                  <button type="button" class="btn btn-danger btn-sm" data-widget="collapse">
-                    <i class="fa fa-minus"></i>
-                  </button>
+      <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header bg-danger">
+                  <div class="float-left">
+                    <!--<a ><input class="btn btn-block btn-success" value="Nuevo Usuario"></a>-->
+                    <h3>Productos Vendidos</h3>
+                  </div>
                 </div>
-                <!-- /. tools -->
+                <!-- /.card-header -->
+                <div class="card-body">
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+              <th>ID</th>
+              <th>Producto ID</th>
+              <th>Cantidad</th>
+              <th>Total</th>
+              <th>Venta ID</th>
+              <!--<th>Eliminar</th>-->
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <?php
+                      //Vista completa de los usuarios mediante un datatable
+                        $vistaProdVendidos = new MvcController();
+                        $vistaProdVendidos -> vistaProductosVendidosController();
+                      ?>
+                    </tbody>
+
+                  </table>
+                </div>
+                <!-- /.card-body -->
               </div>
-              <!-- /.card-header -->
-              <div class="card-body p-0">
-                <!--The calendar -->
-                <div id="calendar" style="width: 100%"></div>
-              </div>
-              <!-- /.card-body -->
+              <!-- /.card -->
             </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </section>
+        <!-- /.content -->
+      </div>
 
 
-      <!-- solid sales graph -->
+      <!-- solid sales graph 
           <div class="card bg-info-gradient">
             <div class="card-header no-border">
               <h3 class="card-title">
@@ -164,42 +185,64 @@ if(!$_SESSION["validar"]){
                 </button>
               </div>
             </div>
-            <!-- /.card-body -->
+            <!-- /.card-body 
             <div class="card-footer bg-transparent">
               <div class="row">
                 <div class="col-4 text-center">
                   <?php
                   //Se llama al controlador para calcular el total de usuarios
-                      $totalUsuariosG = new MvcController();
-                      $totalUsuariosG -> totalUsuariosGController();
+                      //$totalUsuariosG = new MvcController();
+                      //$totalUsuariosG -> totalUsuariosGController();
                     ?>
                   <div class="text-white">Usuarios</div>
                 </div>
-                <!-- ./col -->
+                <!-- ./col 
                 <div class="col-4 text-center">
                   <?php
                   //Se llama al controlador para calcular el total de productos registrados
-                      $totalProductosG = new MvcController();
-                      $totalProductosG -> totalProductosGController();
+                      //$totalProductosG = new MvcController();
+                      //$totalProductosG -> totalProductosGController();
                     ?>
                   <div class="text-white">Productos</div>
                 </div>
-                <!-- ./col -->
+                <!-- ./col 
                 <div class="col-4 text-center">
                   <?php
                   //Se llama al controlador para calcular el total de movimientos
-                      $totalMovimientosG = new MvcController();
-                      $totalMovimientosG -> totalMovimientosGController();
+                      //$totalMovimientosG = new MvcController();
+                      //$totalMovimientosG -> totalMovimientosGController();
                     ?>
                   <div class="text-white">Movimientos</div>
                 </div>
-                <!-- ./col -->
+                <!-- ./col
               </div>
-              <!-- /.row -->
+              <!-- /.row
             </div>
-            <!-- /.card-footer -->
+            <!-- /.card-footer
           </div>
           <!-- /.card -->
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+
+<!-- page script -->
+<script>
+  $(function () {
+    $('#example1').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+  });
+</script>
 
 </body>
 </html>

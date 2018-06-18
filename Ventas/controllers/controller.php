@@ -154,6 +154,31 @@ class MvcController{
 
 	}
 
+	#------------------------------------
+	/*public function restarStockController(){
+
+			$select_ultimoprod_vendido = Datos::seleccionarUltimoProdVendidoModel("productos_vendidos",$_SESSION["id_tienda"]);
+
+			$cantidad_pvendido = Datos::selUltimoProdVendidoModel("productos_vendidos",$_SESSION["id_tienda"],$select_ultimoprod_vendido["id_producto_vendido"]);
+
+			//$id_pvendido = Datos::selUltimoProdVendidoModel("productos_vendidos",$_SESSION["id_tienda"]);
+
+			$respuesta = Datos::actualizarProductoModel2($$cantidad_pvendido, "productos",$select_ultimoprod_vendido["id_producto"]);
+
+			//se imprime la respuesta en la vista 
+			if($respuesta == "success"){
+
+				header("location:index.php?action=StockReducido");
+
+			}
+
+			else{
+
+				header("location:index.php");
+			}
+
+	}	*/
+
 	public function SeleccionarProductosController(){
 
 		$respuesta = Datos::seleccionarProductosModel("productos",$_SESSION["id_tienda"]);
@@ -171,8 +196,10 @@ class MvcController{
 	public function registrarVentaController(){
 	                
 
-			if(isset($_POST["enviar"])){
+		if(isset($_POST["enviar"])){
 			//Recibe a traves del método POST el name (html) de usuario, password y email, se almacenan los datos en una variable de tipo array con sus respectivas propiedades (usuario, password y email):
+
+	        //$respuesta = Datos::seleccionarProductosVentaModel("productos", $_SESSION["id_tienda"], $_POST["idProductoVenta"]);
 
 
 			$datosControllerVenta = array( "id_producto"=>$_POST["idProductoVenta"], 
@@ -214,9 +241,26 @@ class MvcController{
 				$insert_prod_vendidos = Datos::registroProductosVendidosModel($datosControllerProductosVendidos, "productos_vendidos", $_SESSION["id_tienda"]);
 
 				if ($insert_prod_vendidos == "success") {
-					
-					header("location:index.php?action=VentaRegistrada");
 
+					/*$select_ultimoprod_vendido = Datos::seleccionarUltimoProdVendidoModel("productos_vendidos",$_SESSION["id_tienda"]);
+
+					$datosController = array( "id_producto"=>$select_ultimoprod_vendido["id_producto_vendido"],
+											  "id_usuario"=>$_SESSION["id_usuario"],
+											  "fechaMov"=>$_POST["fechaVentaEditar"],
+						                  	  "nota"=>$_SESSION["nombre"],
+						                  	  "referencia"=>$_SESSION["nombre"],
+						                  	  "cantidad"=>$_POST["cantidadVenta"]);
+
+					echo $datosController;
+					
+					$respuesta2 = Datos::registroHistorialModel($datosController, "historial", $_SESSION["id_tienda"]);
+
+					/*if ($respuesta2 == "success") {*/
+						header("location:index.php?action=VentaRegistrada");
+					/*}else{
+						header("location:index.php");
+					}*/
+					
 				}else{
 					header("location:index.php");
 				}
@@ -311,11 +355,37 @@ class MvcController{
 				    </form>
 
 				    <ul class="navbar-nav ml-auto">
+				      
+				      <!-- Notifications Dropdown Menu -->
+				      <li class="nav-item dropdown">
+				        <a class="nav-link" data-toggle="dropdown" href="#">
+				          <i class="fa fa-bell-o"></i>
+				          <span class="badge navbar-badge" style="background-color: #dd7d00; color: white;">';
+
+				          $respuesta = Datos::seleccionarProdLowStockModel("productos", $_SESSION["id_tienda"]);
+				          echo count($respuesta);
+				          
+				    echo '</span>
+				        </a>
+				        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+				          <span class="dropdown-item dropdown-header">'; echo count($respuesta); echo' Notificacion(es)</span>
+				          <div class="dropdown-divider"></div>';
+
+				          $respuesta = Datos::seleccionarProdLowStockModel("productos", $_SESSION["id_tienda"]);
+						  foreach($respuesta as $row => $item){
+							    echo '  <a a href="index.php?action=añadirStockProducto&id='.$item["id_producto"].'" class="dropdown-item">
+				            		<i class="fa fa-cubes mr-2"></i>';
+			        	  	echo 'ProductoID: '.$item["id_producto"].' tiene un stock de: '.$item["stock"].'';
+				        	echo'</a>';
+				      	  }
+				    echo '   <div class="dropdown-divider"></div>
+
+				      </li>				      
+
 				      <li class="nav-item">
 				        <a class="nav-link" href="index.php?action=help"><i class="fa fa-question-circle"></i></a>
-				      </li>				      
+				      </li>	
 				    </ul>
-
 				  </nav>
 				  <!-- /.navbar -->
 
@@ -422,6 +492,33 @@ class MvcController{
 						    </form>
 
 						    <ul class="navbar-nav ml-auto">
+
+						      <!-- Notifications Dropdown Menu -->
+						      <li class="nav-item dropdown">
+						        <a class="nav-link" data-toggle="dropdown" href="#">
+						          <i class="fa fa-bell-o"></i>
+						          <span class="badge navbar-badge" style="background-color: #dd7d00; color: white;">';
+
+						          $respuesta = Datos::seleccionarProdLowStockModel("productos", $_SESSION["id_tienda"]);
+						          echo count($respuesta);
+						          
+						    echo '</span>
+						        </a>
+						        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+						          <span class="dropdown-item dropdown-header">'; echo count($respuesta); echo' Notificacion(es)</span>
+						          <div class="dropdown-divider"></div>';
+
+						          $respuesta = Datos::seleccionarProdLowStockModel("productos", $_SESSION["id_tienda"]);
+								  foreach($respuesta as $row => $item){
+	  							    echo '  <a a href="index.php?action=añadirStockProducto&id='.$item["id_producto"].'" class="dropdown-item">
+						            		<i class="fa fa-cubes mr-2"></i>';
+					        	  	echo 'ProductoID: '.$item["id_producto"].' tiene un stock de: '.$item["stock"].'';
+						        	echo'</a>';
+						      	  }
+						    echo '   <div class="dropdown-divider"></div>
+
+						      </li>	
+
 						      <li class="nav-item">
 						        <a class="nav-link" href="index.php?action=help"><i class="fa fa-question-circle"></i></a>
 						      </li>				      
@@ -773,45 +870,75 @@ class MvcController{
 		#El constructor foreach proporciona un modo sencillo de iterar sobre arrays. foreach funciona sólo sobre arrays y objetos, y emitirá un error al intentar usarlo con una variable de un tipo diferente de datos o una variable no inicializada.
 
 		foreach($respuesta as $row => $item){
-		echo'<tr>
-				<td>'.$item["id_usuario"].'</td>
-				<td>'.$item["nombre"].' '.$item["apellido"].'</td>
-				<td>'.$item["username"].'</td>
-				<td>'.$item["password"].'</td>
-				<td>'.$item["email"].'</td>
-				<td>'.$item["fecha"].'</td>
-				<td><center><a href="index.php?action=editar&id='.$item["id_usuario"].'" class="btn btn-info" title= "Editar Usuario">
-                  		<i class="fa fa-edit"></i>
-                	</a>
-                	<button onClick="borrar();" class="btn btn-danger" title= "Borrar Usuario">
-                  		<i class="fa fa-trash"></i>
-                	</button></center>
-                </td>
-				<!--<td><a href="index.php?action=editar&id='.$item["id_usuario"].'"><button class="btn btn-block btn-secondary">Editar</button></a></td>-->
-				<!--<td><a href="index.php?action=usuarios&idBorrar='.$item["id_usuario"].'"><button class="btn btn-block btn-danger">Borrar</button></a></td>-->
-			</tr>';
 
-        echo '<script type="text/javascript">
-		    var password="'.$_SESSION["password"].'";
-		    function borrar(){
-		      swal("Ingrese su contraseña:", {
-		        content: "input",
-		      })
-		      .then((value) => {
-		          if (value==password) {
-		            window.location.href = "index.php?action=usuarios&idBorrar='.$item["id_usuario"].'";
-		          }else{
-		            swal("Contraseña Incorrecta", "Intente de nuevo", "error");
-		          }     
-		      });
-		    } 
-		</script>';			
+				echo'<tr>
+						<td>'.$item["id_usuario"].'</td>
+						<td>'.$item["nombre"].' '.$item["apellido"].'</td>
+						<td>'.$item["username"].'</td>
+						<td>'.$item["password"].'</td>
+						<td>'.$item["email"].'</td>
+						<td>'.$item["fecha"].'</td>
+						<td><center><a href="index.php?action=editar&id='.$item["id_usuario"].'" class="btn btn-info" title= "Editar Usuario">
+		                  		<i class="fa fa-edit"></i>
+		                	</a>';
+
+		                	if ($_SESSION["id_usuario"] != $item["id_usuario"]) {
+
+			                	echo '<button onClick="borrar();" class="btn btn-danger" title= "Borrar Usuario">
+			                  				<i class="fa fa-trash"></i>
+			                		  </button>';
+		                		}
+
+		                	echo'</center>
+		                </td>
+						<!--<td><a href="index.php?action=editar&id='.$item["id_usuario"].'"><button class="btn btn-block btn-secondary">Editar</button></a></td>-->
+						<!--<td><a href="index.php?action=usuarios&idBorrar='.$item["id_usuario"].'"><button class="btn btn-block btn-danger">Borrar</button></a></td>-->
+					</tr>';
+
+		        echo '<script type="text/javascript">
+				    var password="'.$_SESSION["password"].'";
+				    function borrar(){
+				      swal("Ingrese su contraseña:", {
+				        content: "input",
+				      })
+				      .then((value) => {
+				          if (value==password) {
+				            window.location.href = "index.php?action=usuarios&idBorrar='.$item["id_usuario"].'";
+				          }else{
+				            swal("Contraseña Incorrecta", "Intente de nuevo", "error");
+				          }     
+				      });
+				    } 
+				</script>';	
 
 		}
 
 	}
 
 	#VISTA DE PRODUCTOS VENDIDOS
+	#------------------------------------
+
+	public function vistaProductosVendidosController(){
+
+		$respuesta = Datos::vistaProductosVendidosModel("productos_vendidos",$_SESSION["id_tienda"]);
+
+		#El constructor foreach proporciona un modo sencillo de iterar sobre arrays. foreach funciona sólo sobre arrays y objetos, y emitirá un error al intentar usarlo con una variable de un tipo diferente de datos o una variable no inicializada.
+
+		foreach($respuesta as $row => $item){
+		echo'<tr>
+				<td>'.$item["id_producto_vendido"].'</td>
+				<td>'.$item["id_producto"].'</td>
+				<td>'.$item["cantidad"].'</td>
+				<td>'.$item["total"].'</td>
+				<td>'.$item["id_venta"].'</td>
+			</tr>';		
+
+		}
+
+	}
+
+
+	#VISTA DE DETALLES PRODUCTOS VENDIDOS
 	#------------------------------------
 
 	public function vistaProductosVendController(){
@@ -853,7 +980,7 @@ class MvcController{
 				<!--<td>'.$item["productos_vendidos"].'</td>-->
 				<td>'.$item["total"].'</td>
 				<td><center><a href="index.php?action=editarVenta&id='.$item["id_venta"].'" class="btn btn-info" title= "Ver detalles">
-                  		<i class="fa fa-edit"></i>
+                  		<i class="fa fa-file"></i>
                 	</a>
                 	<!--<button onClick="borrar();" class="btn btn-danger" title= "Borrar Usuario">
                   		<i class="fa fa-trash"></i>
@@ -1310,7 +1437,7 @@ class MvcController{
 	                <!-- /.form-group -->
 	                <div class="form-group">
 	                    <label for="exampleInputPassword1">Stock</label>
-	                    <input type="number" class="form-control" value="'.$respuesta["stock"].'" name="stockEditar" required>
+	                    <input type="number" class="form-control" value="'.$respuesta["stock"].'" min=1 name="stockEditar" required>
 	                </div>
 	                <!-- /.form-group -->
         			<div class="form-group">
@@ -1428,7 +1555,7 @@ class MvcController{
         			</div>
 	                <div class="form-group">
 	                    <label for="exampleInputPassword1">Cantidad a Agregar</label>
-	                    <input type="number" class="form-control" name="stockAgregarEditar">
+	                    <input type="number" class="form-control" name="stockAgregarEditar" min=1>
 	                </div>
 	                <div class="form-group">
 	                    <label for="exampleInputPassword1">Nota</label>
@@ -1537,7 +1664,7 @@ class MvcController{
         			</div>
 	                <div class="form-group">
 	                    <label for="exampleInputPassword1">Cantidad a Quitar</label>
-	                    <input type="number" class="form-control" name="stockAgregarEditar">
+	                    <input type="number" class="form-control" name="stockAgregarEditar" min=1 max='.$respuesta["stock"].'>
 	                </div>
 	                <div class="form-group">
 	                    <label for="exampleInputPassword1">Nota</label>

@@ -17,7 +17,7 @@ if(!$_SESSION["validar"]){
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Data Tables</title>
+  <title>Categorias | Editar Categorias</title>
 
 </head>
 <body class="hold-transition sidebar-mini">
